@@ -1,7 +1,9 @@
+from tokenize import group
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .permissions import IsAuthorOrReadOnly, IsFollowerOrReadOnly
 from . import serializers
@@ -22,10 +24,10 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = serializers.PostSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly,)
     pagination_class = LimitOffsetPagination
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,)
-    filterset_fields = ('text', 'author', 'group', 'pub_date',)
+    filterset_fields = ('text', 'author', 'pub_date',)
     search_fields = ('text', 'author__username',)
 
     def perform_create(self, serializer):

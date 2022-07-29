@@ -65,13 +65,30 @@ class Follow(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='follower'
-        )
-    author = models.ForeignKey(
+        related_name='follower',
+        verbose_name='Последователь',
+        null=True,
+        blank=True,
+        help_text='Это фолловер'
+    )
+    following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='following'
-        )
+        related_name='following',
+        verbose_name='Лидер',
+        null=True,
+        blank=True,
+        help_text='Это контентмейкер'
+    )
 
     class Meta:
-        unique_together = ('user', 'author')       
+        constraints = [
+            models.UniqueConstraint(
+                fields=('user', 'following'),
+                name='followings are unique'
+            )
+        ]
+        ordering = ('user',)
+
+    def __str__(self):
+        return f'{self.user} follows {self.following}'

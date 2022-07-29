@@ -19,22 +19,6 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PostSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='username'
-    )
-    group = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='title',
-        required=False,
-    )
-
-    class Meta:
-        model = Post
-        fields = '__all__'
-
-
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         read_only=True,
@@ -45,6 +29,21 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+
+class PostSerializer(serializers.ModelSerializer):
+    author = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
+    comments = CommentSerializer(
+        many=True,
+        required=False
+    )
+
+    class Meta:
+        model = Post
+        fields = '__all__'        
 
 
 class FollowSerializer(serializers.ModelSerializer):
