@@ -3,8 +3,8 @@ from rest_framework import permissions
 
 class IsAuthorOrReadOnly(permissions.BasePermission):
     """
-    Изменение контента доступно только автору, 
-    остальным - чтение. 
+    Изменение контента доступно только автору,
+    остальным - чтение.
     """
 
     message = 'Изменять или удалять чужой контент запрещено'
