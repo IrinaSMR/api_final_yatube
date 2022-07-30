@@ -2,8 +2,9 @@ from rest_framework import permissions
 
 
 class IsAuthorOrReadOnly(permissions.BasePermission):
-    """Изменение контента доступно только автору,
-    остальным - чтение.
+    """
+    Изменение контента доступно только автору, 
+    остальным - чтение. 
     """
 
     message = 'Изменять или удалять чужой контент запрещено'
@@ -20,7 +21,8 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 
 
 class IsFollowerOrReadOnly(permissions.BasePermission):
-    """Редактирование своих подписок доступно только пользователю,
+    """
+    Редактирование своих подписок доступно только пользователю,
     остальным - чтение.
     """
 

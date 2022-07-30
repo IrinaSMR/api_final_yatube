@@ -68,3 +68,5 @@ http://127.0.0.1:8000/api/v1/jwt/create/
 ```
 http://127.0.0.1:8000/redoc/
 ```
+
+**Автор**: ismirnova83@yandex.ru (Smirnova Irina)
